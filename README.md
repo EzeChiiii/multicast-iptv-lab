@@ -10,6 +10,9 @@ streamed with **FFmpeg**, validated with **FFprobe**, and received by **FFplay/V
 
 <img width="514" height="516" alt="Screenshot 2026-06-01 at 12 39 59 AM" src="https://github.com/user-attachments/assets/c99bdf7f-73df-470c-a0b7-779f00b0446e" />
 
+
+<img width="1441" height="506" alt="Screenshot 2026-06-01 at 1 09 25 AM" src="https://github.com/user-attachments/assets/229e35f6-511a-43f4-8a4b-e0040ce87980" />
+
 ---
 
 ## Channel Map
@@ -91,7 +94,14 @@ scp your_video.mp4 root@192.168.70.10:/opt/iptv/media/channel_loop.mp4
 
 ```bash
 ssh root@192.168.70.10 "systemctl start iptv-stream"
+
 ```
+<img width="1009" height="314" alt="Screenshot 2026-06-01 at 1 11 27 AM" src="https://github.com/user-attachments/assets/37ddb7ca-ae63-4a59-9eca-206b85684c1a" />
+
+**Systemd service status — 3 FFmpeg processes running:**
+
+<img width="1336" height="72" alt="Screenshot 2026-06-01 at 1 10 17 AM" src="https://github.com/user-attachments/assets/abc74918-b841-4053-8ec6-384130e1926a" />
+
 
 ### Step 5 — Validate streams with FFprobe
 
@@ -121,6 +131,9 @@ ssh root@192.168.70.13 "ffplay -nodisp -fflags nobuffer \
   -analyzeduration 2000000 -probesize 2000000 \
   -skip_frame noref udp://@239.1.1.3:1234"
 ```
+
+<img width="689" height="326" alt="Screenshot 2026-06-01 at 1 11 56 AM" src="https://github.com/user-attachments/assets/bcb38a69-4a5e-4ae2-b77c-acfab526497f" />
+
 
 ### Step 7 — Verify IGMP group membership
 
