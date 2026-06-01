@@ -1,0 +1,15 @@
+[Unit]
+Description=Multicast IPTV Receiver
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/opt/iptv/scripts/launch_receiver.sh
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

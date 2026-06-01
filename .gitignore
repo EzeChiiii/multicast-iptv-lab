@@ -1,0 +1,10 @@
+# Terraform sensitive files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/terraform.tfstate
+terraform/terraform.tfstate.backup
+terraform/terraform.tfvars
+
+# Mac junk
+.DS_Store
+

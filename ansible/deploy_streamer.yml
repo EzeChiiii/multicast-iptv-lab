@@ -1,0 +1,55 @@
+---
+# deploy_streamer.yml
+# Configures the FFmpeg streamer LXC
+# Run with: ansible-playbook -i inventory.ini deploy_streamer.yml
+
+- name: Configure Multicast IPTV Streamer
+  hosts: streamer
+  become: true
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install FFmpeg
+      apt:
+        name: ffmpeg
+        state: present
+
+    - name: Verify ffmpeg installed
+      command: ffmpeg -version
+      register: ffmpeg_out
+      changed_when: false
+
+    - name: Print ffmpeg version
+      debug:
+        msg: "{{ ffmpeg_out.stdout_lines[0] }}"
+
+    - name: Verify ffprobe installed
+      command: ffprobe -version
+      register: ffprobe_out
+      changed_when: false
+
+    - name: Print ffprobe version
+      debug:
+        msg: "{{ ffprobe_out.stdout_lines[0] }}"
+
+    - name: Create media directory
+      file:
+        path: /opt/iptv/media
+        state: directory
+        mode: '0755'
+
+    - name: Create scripts directory
+      file:
+        path: /opt/iptv/scripts
+        state: directory
+        mode: '0755'
+
+    - name: Create logs directory
+      file:
+        path: /var/log/iptv
+        state: directory
+        mode: '0755'

@@ -1,0 +1,15 @@
+[Unit]
+Description=Multicast IPTV Streaming Headend
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+ExecStart=/opt/iptv/scripts/stream_channels.sh
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

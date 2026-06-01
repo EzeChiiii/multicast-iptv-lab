@@ -1,0 +1,56 @@
+---
+# deploy_endpoints.yml
+# Configures all 3 IPTV endpoint LXCs
+# Run with: ansible-playbook -i inventory.ini deploy_endpoints.yml
+
+- name: Configure Multicast IPTV Endpoints
+  hosts: endpoints
+  become: true
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install FFmpeg
+      apt:
+        name: ffmpeg
+        state: present
+
+    - name: Install VLC headless
+      apt:
+        name:
+          - vlc
+          - vlc-bin
+        state: present
+
+    - name: Verify ffmpeg installed
+      command: ffmpeg -version
+      register: ffmpeg_out
+      changed_when: false
+
+    - name: Print ffmpeg version
+      debug:
+        msg: "{{ ffmpeg_out.stdout_lines[0] }}"
+
+    - name: Verify ffplay installed
+      command: ffplay -version
+      register: ffplay_out
+      changed_when: false
+
+    - name: Print ffplay version
+      debug:
+        msg: "{{ ffplay_out.stdout_lines[0] }}"
+
+    - name: Create scripts directory
+      file:
+        path: /opt/iptv/scripts
+        state: directory
+        mode: '0755'
+
+    - name: Create logs directory
+      file:
+        path: /var/log/iptv
+        state: directory
+        mode: '0755'
